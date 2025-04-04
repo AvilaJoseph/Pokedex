@@ -4,7 +4,7 @@ import Navbar from '../components/Navbar';
 export default function LoginScreen() {
     return (
         <View style={styles.container}>
-            <Navbar title='Hola' />
+            <Navbar title='Login' />
             <View style={styles.content}>
                 <Text style={styles.text}>Holaaaa</Text>
             </View>
