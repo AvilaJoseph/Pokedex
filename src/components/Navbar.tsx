@@ -1,19 +1,26 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, SafeAreaView } from 'react-native';
 import NavbarProps from './../interfaces/navbar_intefaces';
 import Ionicons from '@expo/vector-icons/Ionicons';
 
 export default function Navbar({ title }: NavbarProps) {
-    return(
-        <View style={styles.container}>
-            <Text>{title}</Text>
-            <Ionicons name="home" size={24} color="black" />
-        </View>
+    return (
+        <SafeAreaView style={styles.safeArea}>
+            <View style={styles.container}>
+                <Ionicons name="home" size={24} color="black" />
+                <Text>{title}</Text>
+            </View>
+        </SafeAreaView>
     );
 }
 
 const styles = StyleSheet.create({
-    container:{
-        flex: 1,
-        paddingTop: 100
-    }
+    safeArea: {
+        backgroundColor: 'white',
+    },
+    container: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        padding: 16,
+        justifyContent: 'space-between',
+    },
 })
