@@ -90,20 +90,20 @@ const styles = StyleSheet.create({
         paddingHorizontal: 24,
     },
     titleContainer: {
-        marginTop: height * 0.05,
+        marginTop: height * 0.058,
         marginBottom: height * 0.02,
         alignItems: 'center',
         justifyContent: 'center',
     },
     title: {
         fontFamily: 'Poppins_600SemiBold',
-        fontSize: 26,
+        fontSize: 22,
         color: '#000000',
         marginBottom: 8,
     },
     subtitle: {
         fontFamily: 'Poppins_400Regular',
-        fontSize: 16,
+        fontSize: 22,
         color: '#888888',
     },
     formContainer: {
