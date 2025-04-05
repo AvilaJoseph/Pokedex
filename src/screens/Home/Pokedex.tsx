@@ -27,6 +27,7 @@ const pokemons = [
     name: 'Bulbasaur',
     imageUrl: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png',
     types: ['Grama', 'Venenoso'],
+    generation: 'Geração I',
     isFavorite: false
   },
   {
@@ -34,6 +35,7 @@ const pokemons = [
     name: 'Ivysaur',
     imageUrl: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/2.png',
     types: ['Grama', 'Venenoso'],
+    generation: 'Geração I',
     isFavorite: false
   },
   {
@@ -41,6 +43,7 @@ const pokemons = [
     name: 'Venusaur',
     imageUrl: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/3.png',
     types: ['Grama', 'Venenoso'],
+    generation: 'Geração I',
     isFavorite: false
   },
   {
@@ -48,6 +51,7 @@ const pokemons = [
     name: 'Charmander',
     imageUrl: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/4.png',
     types: ['Fuego'],
+    generation: 'Geração I',
     isFavorite: false
   },
   {
@@ -55,6 +59,7 @@ const pokemons = [
     name: 'Charmeleon',
     imageUrl: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/5.png',
     types: ['Fuego'],
+    generation: 'Geração I',
     isFavorite: false
   }
 ];
@@ -64,13 +69,15 @@ interface PokemonData {
   name: string;
   imageUrl: string;
   types: string[];
+  generation: string;
   isFavorite: boolean;
 }
 
 export default function Pokedex() {
   const [searchQuery, setSearchQuery] = useState('');
   const [displayedPokemons, setDisplayedPokemons] = useState<PokemonData[]>(pokemons);
-  const [selectedTypeFilter, setSelectedTypeFilter] = useState<string | null>(null);
+  const [selectedTypeFilters, setSelectedTypeFilters] = useState<string[] | null>(null);
+  const [selectedGenerationFilter, setSelectedGenerationFilter] = useState<string | null>(null);
   const [selectedSortFilter, setSelectedSortFilter] = useState<string | null>(null);
   const [isFilterModalVisible, setIsFilterModalVisible] = useState(false);
   
@@ -97,9 +104,16 @@ export default function Pokedex() {
     }
     
     // Apply type filter
-    if (selectedTypeFilter && selectedTypeFilter !== "Todos los tipos") {
+    if (selectedTypeFilters && selectedTypeFilters.length > 0) {
       result = result.filter(pokemon => 
-        pokemon.types.includes(selectedTypeFilter)
+        selectedTypeFilters.some(type => pokemon.types.includes(type))
+      );
+    }
+    
+    // Apply generation filter
+    if (selectedGenerationFilter) {
+      result = result.filter(pokemon => 
+        pokemon.generation === selectedGenerationFilter
       );
     }
     
@@ -120,7 +134,7 @@ export default function Pokedex() {
     }
     
     setDisplayedPokemons(result);
-  }, [searchQuery, selectedTypeFilter, selectedSortFilter]);
+  }, [searchQuery, selectedTypeFilters, selectedGenerationFilter, selectedSortFilter]);
 
   // Toggle favorite status
   const toggleFavorite = (id: string) => {
@@ -131,6 +145,17 @@ export default function Pokedex() {
           : pokemon
       )
     );
+  };
+
+  // Handle applying filters
+  const handleApplyFilters = (
+    typeFilters: string[] | null, 
+    generationFilter: string | null, 
+    sortFilter: string | null
+  ) => {
+    setSelectedTypeFilters(typeFilters);
+    setSelectedGenerationFilter(generationFilter);
+    setSelectedSortFilter(sortFilter);
   };
 
   if (!fontsLoaded) {
@@ -158,7 +183,7 @@ export default function Pokedex() {
               <Ionicons 
                 name="filter" 
                 size={24} 
-                color={selectedSortFilter ? "#007AFF" : "#8E8E93"} 
+                color={(selectedTypeFilters || selectedGenerationFilter || selectedSortFilter) ? "#007AFF" : "#8E8E93"} 
               />
             </TouchableOpacity>
           </View>
@@ -177,8 +202,10 @@ export default function Pokedex() {
       <FilterModal 
         isVisible={isFilterModalVisible}
         onClose={() => setIsFilterModalVisible(false)}
-        onSelectFilter={setSelectedSortFilter}
-        selectedFilter={selectedSortFilter}
+        onApplyFilters={handleApplyFilters}
+        initialTypeFilters={selectedTypeFilters}
+        initialGenerationFilter={selectedGenerationFilter}
+        initialSortFilter={selectedSortFilter}
       />
     </SafeAreaView>
   );
