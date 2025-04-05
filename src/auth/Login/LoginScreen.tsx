@@ -35,11 +35,6 @@ export default function LoginScreen() {
         <SafeAreaView style={styles.container}>
             <StatusBar backgroundColor="white" barStyle="dark-content" />
 
-            {/* Header with navbar */}
-            <View style={styles.header}>
-                <Navbar title='Entrar'/>
-            </View>
-
             <View style={styles.content}>
                 {/* Character image */}
                 <View style={styles.imageContainer}>

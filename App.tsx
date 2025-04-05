@@ -7,10 +7,11 @@ import LoginSucessful from './src/auth/Login/LoginSucessful';
 import RegisterSucessfull from './src/auth/Register/RegisterSucessfull';
 import RegisterFormScreen from './src/auth/Register/RegisterFormScreen';
 import WelcomeScreen from './src/auth/Welcome/WelcomeScreen';
+import WelcomeSucessfull from './src/auth/Welcome/WelcomeSucessfull';
 
 export default function App() {
   return (
-    <WelcomeScreen></WelcomeScreen>
+    <WelcomeSucessfull></WelcomeSucessfull>
   );
 }
 
