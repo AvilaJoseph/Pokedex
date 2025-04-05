@@ -8,7 +8,7 @@ import {
     StatusBar
 } from 'react-native';
 
-import Navbar from '../components/Navbar';
+import Navbar from '../../components/Navbar';
 
 import {
     useFonts,
@@ -17,9 +17,9 @@ import {
     Poppins_600SemiBold
 } from '@expo-google-fonts/poppins';
 
-import Button from '../components/Buttom';
-import GoogleIcon from '../../assets/img/icons/GoogleIcon';
-import AppleIcon from '../../assets/img/icons/AppleIcon';
+import Button from '../../components/Buttom';
+import GoogleIcon from '../../../assets/img/icons/GoogleIcon';
+import AppleIcon from '../../../assets/img/icons/AppleIcon';
 
 const { width, height } = Dimensions.get('window');
 

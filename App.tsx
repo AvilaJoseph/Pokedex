@@ -1,12 +1,13 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
-import LoginScreen from './src/auth/LoginScreen'
-import RegisterScreen from './src/auth/RegisterScreen';
-import LoginFormScreen from './src/auth/LoginFormScreen';
+import LoginScreen from './src/auth/Login/LoginScreen'
+import RegisterScreen from './src/auth/Register/RegisterScreen';
+import LoginFormScreen from './src/auth/Login/LoginFormScreen';
+import LoginSucessful from './src/auth/Login/LoginSucessful';
 
 export default function App() {
   return (
-    <LoginFormScreen></LoginFormScreen>
+    <LoginSucessful></LoginSucessful>
   );
 }
 

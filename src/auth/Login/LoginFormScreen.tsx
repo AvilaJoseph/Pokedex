@@ -9,14 +9,14 @@ import {
     PixelRatio
 } from "react-native";
 import { useState, useEffect } from 'react';
-import Navbar from "../components/Navbar";
+import Navbar from "../../components/Navbar";
 import {
     useFonts,
     Poppins_400Regular,
     Poppins_500Medium,
     Poppins_600SemiBold
 } from '@expo-google-fonts/poppins';
-import Button from "../components/Buttom";
+import Button from "../../components/Buttom";
 
 const { width, height } = Dimensions.get('window');
 
