@@ -67,6 +67,6 @@ const styles = StyleSheet.create({
     titleText: {
         fontSize: Math.max(16, SCREEN_WIDTH * 0.045), // Responsive font size with minimum
         fontFamily: 'Poppins_600SemiBold', // Changed from fontWeight to fontFamily
-        color: '#333',
+        color: '#Poppins_400Regular',
     },
 })

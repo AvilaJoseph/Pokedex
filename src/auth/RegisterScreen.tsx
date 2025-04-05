@@ -7,13 +7,16 @@ import {
     Dimensions,
     StatusBar
 } from 'react-native';
+
 import Navbar from '../components/Navbar';
+
 import {
     useFonts,
     Poppins_400Regular,
     Poppins_500Medium,
     Poppins_600SemiBold
 } from '@expo-google-fonts/poppins';
+
 import Button from '../components/Buttom';
 import GoogleIcon from '../../assets/img/icons/GoogleIcon';
 import AppleIcon from '../../assets/img/icons/AppleIcon';
@@ -35,13 +38,11 @@ export default function RegisterScreen() {
         <SafeAreaView style={styles.container}>
             <StatusBar backgroundColor="white" barStyle="dark-content" />
 
-            {/* Header with navbar */}
             <View style={styles.header}>
                 <Navbar title='Crear Cuenta'/>
             </View>
 
             <View style={styles.content}>
-                {/* Character image */}
                 <View style={styles.imageContainer}>
                     <Image
                         source={require('./../../assets/img/banner/register.png')}
@@ -50,15 +51,12 @@ export default function RegisterScreen() {
                     />
                 </View>
 
-                {/* Text and buttons container */}
                 <View style={styles.bottomContainer}>
-                    {/* Welcome text */}
                     <View style={styles.textContainer}>
                         <Text style={styles.title}>Falta poco para explorar este mundo!</Text>
                         <Text style={styles.subtitle}>Como deseas conectarte?</Text>
                     </View>
 
-                    {/* Login buttons */}
                     <View style={styles.buttonsContainer}>
                         <Button
                             title="Continuar con Apple"
