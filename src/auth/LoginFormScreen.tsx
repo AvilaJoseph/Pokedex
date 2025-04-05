@@ -21,14 +21,14 @@ import Button from "../components/Buttom";
 const { width, height } = Dimensions.get('window');
 
 // Función para hacer el texto responsivo basado en el tamaño de la pantalla
-const normalizeFont = (size) => {
+const normalizeFont = (size:number) => {
     const scale = width / 375; // 375 es el ancho base de diseño (iPhone X)
     const newSize = size * scale;
     return Math.round(PixelRatio.roundToNearestPixel(newSize));
 };
 
 // Función para hacer paddings y margins responsivos
-const normalizeSpace = (size) => {
+const normalizeSpace = (size:number) => {
     const scale = Math.min(width / 375, height / 812); // Considerar altura también
     return Math.round(size * scale);
 };
@@ -70,7 +70,10 @@ export default function LoginFormScreen() {
                 <View style={styles.formContainer}>
                     <Text style={styles.inputLabel}>E-mail</Text>
                     <TextInput
-                        style={styles.input}
+                        style={[
+                            styles.input, 
+                            email.trim() !== '' && styles.filledInput
+                        ]}
                         value={email}
                         onChangeText={setEmail}
                         placeholder="Ingresa tu E-mail"
@@ -81,7 +84,10 @@ export default function LoginFormScreen() {
 
                     <Text style={styles.inputLabel}>Contraseña</Text>
                     <TextInput
-                        style={styles.input}
+                        style={[
+                            styles.input, 
+                            password.trim() !== '' && styles.filledInput
+                        ]}
                         value={password}
                         onChangeText={setPassword}
                         placeholder="Ingresa tu Contraseña"
@@ -100,9 +106,9 @@ export default function LoginFormScreen() {
                     <Button
                         title="Iniciar Sesión"
                         onPress={() => {}}
-                        backgroundColor={isFormFilled ? "#2B5CD6" : "#D1D5DB"}
-                        textColor={isFormFilled ? "white" : "#6B7280"}
-                        borderColor={isFormFilled ? "#2B5CD6" : "#D1D5DB"}
+                        backgroundColor={isFormFilled ? "#173EA5" : "#E6E6E6"}
+                        textColor={isFormFilled ? "white" : "#999999"}
+                        borderColor={isFormFilled ? "#2B5CD6" : "transparent"}
                         borderWidth={1}
                     />
                 </View>
@@ -166,6 +172,9 @@ const styles = StyleSheet.create({
         fontSize: normalizeFont(16),
         fontFamily: 'Poppins_400Regular',
         color: '#333333',
+    },
+    filledInput: {
+        borderColor: '#000000',
     },
     ForgetPassword:{
         fontFamily: 'Poppins_500Medium',
