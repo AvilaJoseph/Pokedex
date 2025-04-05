@@ -5,9 +5,10 @@ import {
     View,
     Text,
     StatusBar,
-    TextInput
+    TextInput,
+    PixelRatio
 } from "react-native";
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Navbar from "../components/Navbar";
 import {
     useFonts,
@@ -15,18 +16,38 @@ import {
     Poppins_500Medium,
     Poppins_600SemiBold
 } from '@expo-google-fonts/poppins';
+import Button from "../components/Buttom";
 
 const { width, height } = Dimensions.get('window');
+
+// Función para hacer el texto responsivo basado en el tamaño de la pantalla
+const normalizeFont = (size) => {
+    const scale = width / 375; // 375 es el ancho base de diseño (iPhone X)
+    const newSize = size * scale;
+    return Math.round(PixelRatio.roundToNearestPixel(newSize));
+};
+
+// Función para hacer paddings y margins responsivos
+const normalizeSpace = (size) => {
+    const scale = Math.min(width / 375, height / 812); // Considerar altura también
+    return Math.round(size * scale);
+};
 
 export default function LoginFormScreen() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [isFormFilled, setIsFormFilled] = useState(false);
     
     const [fontsLoaded] = useFonts({
         Poppins_400Regular,
         Poppins_500Medium,
         Poppins_600SemiBold,
     });
+
+    useEffect(() => {
+        // Check if both email and password fields are filled
+        setIsFormFilled(email.trim() !== '' && password.trim() !== '');
+    }, [email, password]);
 
     if (!fontsLoaded) {
         return null;
@@ -42,8 +63,8 @@ export default function LoginFormScreen() {
 
             <View style={styles.content}>
                 <View style={styles.titleContainer}>
-                    <Text style={styles.title}>Bienvenido de vuelta!</Text>
-                    <Text style={styles.subtitle}>Completa los datos</Text>
+                    <Text style={styles.subtitle}>Bienvenido de vuelta!</Text>
+                    <Text style={styles.title}>Completa los datos</Text>
                 </View>
                 
                 <View style={styles.formContainer}>
@@ -68,6 +89,22 @@ export default function LoginFormScreen() {
                         autoCapitalize="none"
                         secureTextEntry={true}
                     />
+                    <Text style={styles.ForgetPassword}>¿Olvidé Contraseña?</Text>
+                </View>
+                
+                {/* Spacer with minimum height to ensure good spacing */}
+                <View style={[styles.spacer, { minHeight: normalizeSpace(80) }]} />
+                
+                {/* Button at the bottom */}
+                <View style={styles.buttonContainer}>
+                    <Button
+                        title="Iniciar Sesión"
+                        onPress={() => {}}
+                        backgroundColor={isFormFilled ? "#2B5CD6" : "#D1D5DB"}
+                        textColor={isFormFilled ? "white" : "#6B7280"}
+                        borderColor={isFormFilled ? "#2B5CD6" : "#D1D5DB"}
+                        borderWidth={1}
+                    />
                 </View>
             </View>
         </SafeAreaView>
@@ -82,28 +119,31 @@ const styles = StyleSheet.create({
     header: {
         flexDirection: 'row',
         alignItems: 'center',
-        paddingHorizontal: 20,
-        height: 60,
+        paddingHorizontal: normalizeSpace(20),
+        height: normalizeSpace(60),
     },
     content: {
         flex: 1,
-        paddingHorizontal: 24,
+        paddingHorizontal: normalizeSpace(24),
+        paddingBottom: normalizeSpace(24),
+        display: 'flex',
+        flexDirection: 'column',
     },
     titleContainer: {
-        marginTop: height * 0.058,
-        marginBottom: height * 0.02,
+        marginTop: normalizeSpace(40),
+        marginBottom: normalizeSpace(20),
         alignItems: 'center',
         justifyContent: 'center',
     },
     title: {
         fontFamily: 'Poppins_600SemiBold',
-        fontSize: 22,
+        fontSize: normalizeFont(22),
         color: '#000000',
-        marginBottom: 8,
+        marginBottom: normalizeSpace(8),
     },
     subtitle: {
         fontFamily: 'Poppins_400Regular',
-        fontSize: 22,
+        fontSize: normalizeFont(22),
         color: '#888888',
     },
     formContainer: {
@@ -111,20 +151,34 @@ const styles = StyleSheet.create({
     },
     inputLabel: {
         fontFamily: 'Poppins_400Regular',
-        fontSize: 16,
+        fontSize: normalizeFont(16),
         color: '#000000',
-        marginBottom: 8,
-        marginTop: 16,
+        marginBottom: normalizeSpace(8),
+        marginTop: normalizeSpace(16),
     },
     input: {
         width: '100%',
-        height: 56,
+        height: normalizeSpace(56),
         borderWidth: 1,
         borderColor: '#999999',
-        borderRadius: 12,
-        paddingHorizontal: 16,
-        fontSize: 16,
+        borderRadius: normalizeSpace(12),
+        paddingHorizontal: normalizeSpace(16),
+        fontSize: normalizeFont(16),
         fontFamily: 'Poppins_400Regular',
         color: '#333333',
     },
+    ForgetPassword:{
+        fontFamily: 'Poppins_500Medium',
+        fontSize: normalizeFont(16),
+        color: '#173EA5',
+        marginTop: normalizeSpace(25),
+        textAlign: 'center',
+    },
+    spacer: {
+        flex: 1,
+    },
+    buttonContainer: {
+        width: '100%',
+        marginBottom: normalizeSpace(20),
+    }
 });
