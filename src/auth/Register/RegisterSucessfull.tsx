@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
     },
     content: {
         flex: 1,
-        paddingHorizontal: normalizeSpace(24),
+        paddingHorizontal: normalizeSpace(20),
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'space-between',
