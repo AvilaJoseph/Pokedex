@@ -32,7 +32,7 @@ const Step2: React.FC<Step2Props> = ({ onFinish }) => {
         <View style={styles.stepContent}>
             <View style={styles.imageContainer}>
                 <Image
-                    source={require('./../../../../assets/img/banner/login.png')}
+                    source={require('./../../../../assets/img/banner/Welcome/Step2.png')}
                     style={styles.characterImage}
                     resizeMode="contain"
                 />
@@ -77,8 +77,8 @@ const styles = StyleSheet.create({
         marginBottom: normalizeSpace(20),
     },
     characterImage: {
-        width: width * 0.5,
-        height: width * 0.7,
+        width: width * 0.7,
+        height: width * 0.9,
     },
     textContainer: {
         alignItems: 'center',
