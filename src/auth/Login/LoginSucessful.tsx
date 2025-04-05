@@ -36,8 +36,8 @@ export default function LoginSucessful() {
                 </View>
                 
                 <View style={styles.textContainer}>
-                    <Text style={styles.title}>Bem-vindo de volta, Treinador!</Text>
-                    <Text style={styles.subtitle}>Esperamos que tenha tido uma longa jornada desde a última vez em que nos visitou.</Text>
+                    <Text style={styles.title}>Bienvenido de vuelta, Entrenador!</Text>
+                    <Text style={styles.subtitle}>Esperamos que haya tenido un largo viaje desde la última vez que nos visitó.</Text>
                 </View>
                 
                 <View style={styles.buttonsContainer}>
@@ -92,11 +92,12 @@ const styles = StyleSheet.create({
         fontSize: normalizeFont(16),
         color: '#666666',
         textAlign: 'center',
+        paddingVertical: normalizeSpace(8),
         paddingHorizontal: normalizeSpace(10),
     },
     buttonsContainer: {
         width: '100%',
         marginBottom: normalizeSpace(16),
-        marginTop: normalizeSpace(40),
+        marginTop: normalizeSpace(20),
     },
 });
