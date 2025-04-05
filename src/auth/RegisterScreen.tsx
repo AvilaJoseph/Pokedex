@@ -5,9 +5,14 @@ import {
     SafeAreaView,
     Image,
     Dimensions,
-    StatusBar
+    StatusBar,
+    TouchableOpacity
 } from 'react-native';
+
+import { Ionicons } from '@expo/vector-icons';
+
 import Navbar from '../components/Navbar';
+
 import {
     useFonts,
     Poppins_400Regular,
@@ -20,7 +25,7 @@ import AppleIcon from '../../assets/img/icons/AppleIcon';
 
 const { width, height } = Dimensions.get('window');
 
-export default function LoginScreen() {
+export default function RegisterScreen() {
     const [fontsLoaded] = useFonts({
         Poppins_400Regular,
         Poppins_500Medium,
@@ -35,13 +40,11 @@ export default function LoginScreen() {
         <SafeAreaView style={styles.container}>
             <StatusBar backgroundColor="white" barStyle="dark-content" />
 
-            {/* Header with navbar */}
             <View style={styles.header}>
-                <Navbar title='Entrar'/>
+                <Navbar  title='Crear cuenta'/>
             </View>
 
             <View style={styles.content}>
-                {/* Character image */}
                 <View style={styles.imageContainer}>
                     <Image
                         source={require('./../../assets/img/banner/login.png')}
@@ -50,41 +53,36 @@ export default function LoginScreen() {
                     />
                 </View>
 
-                {/* Text and buttons container */}
-                <View style={styles.bottomContainer}>
-                    {/* Welcome text */}
-                    <View style={styles.textContainer}>
-                        <Text style={styles.title}>Que bueno verte aqui nuevamente!</Text>
-                        <Text style={styles.subtitle}>Como deseas conectarte?</Text>
-                    </View>
+                <View style={styles.textContainer}>
+                    <Text style={styles.title}>Que bueno verte aqui nuevamente!</Text>
+                    <Text style={styles.subtitle}>Como deseas conectarte?</Text>
+                </View>
 
-                    {/* Login buttons */}
-                    <View style={styles.buttonsContainer}>
-                        <Button
-                            title="Continuar con Apple"
-                            onPress={() => { }}
-                            backgroundColor="white"
-                            textColor="#333"
-                            icon={<AppleIcon size={20} />}
-                            borderColor="#E1E1E1"
-                        />
+                <View style={styles.buttonsContainer}>
+                    <Button
+                        title="Continuar con Apple"
+                        onPress={() => { }}
+                        backgroundColor="white"
+                        textColor="#333"
+                        icon={<AppleIcon size={20} />}
+                        borderColor="#E1E1E1"
+                    />
 
-                        <Button
-                            title="Continuar con Google"
-                            onPress={() => { }}
-                            backgroundColor="white"
-                            textColor="#333"
-                            icon={<GoogleIcon size={20} />}
-                            borderColor="#E1E1E1"
-                        />
+                    <Button
+                        title="Continuar con Google"
+                        onPress={() => { }}
+                        backgroundColor="white"
+                        textColor="#333"
+                        icon={<GoogleIcon size={20} />}
+                        borderColor="#E1E1E1"
+                    />
 
-                        <Button
-                            title="Continuar con un e-mail"
-                            onPress={() => { }}
-                            backgroundColor="#173EA5"
-                            textColor="white"
-                        />
-                    </View>
+                    <Button
+                        title="Continuar con un e-mail"
+                        onPress={() => { }}
+                        backgroundColor="#173EA5"
+                        textColor="white"
+                    />
                 </View>
             </View>
         </SafeAreaView>
@@ -98,46 +96,61 @@ const styles = StyleSheet.create({
     },
     header: {
         flexDirection: 'row',
+        justifyContent: 'space-between',
         alignItems: 'center',
         paddingHorizontal: 20,
         height: 60,
+    },
+    backButton: {
+        width: 40,
+        height: 40,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    backButtonText: {
+        fontSize: 24,
+        fontWeight: '300',
+    },
+    headerTitle: {
+        fontFamily: 'Poppins_500Medium',
+        fontSize: 18,
     },
     content: {
         flex: 1,
         paddingHorizontal: 32,
         justifyContent: 'space-between',
+        paddingBottom: 40,
     },
     imageContainer: {
-        height: height * 0.45,
+        flex: 2,
         justifyContent: 'center',
         alignItems: 'center',
+        marginTop: 20,
     },
     characterImage: {
         width: width * 0.5,
         height: width * 0.5,
     },
-    bottomContainer: {
-        flex: 1,
-        justifyContent: 'flex-end',
-    },
     textContainer: {
+        flex: 1,
         alignItems: 'center',
-        marginBottom: height * 0.03,
+        justifyContent: 'center',
     },
     title: {
         fontFamily: 'Poppins_500Medium',
-        fontSize: Math.min(28, width * 0.07),
+        fontSize: 22,
         textAlign: 'center',
         marginBottom: 8,
     },
     subtitle: {
         fontFamily: 'Poppins_400Regular',
-        fontSize: Math.min(18, width * 0.045),
+        fontSize: 16,
         color: '#666666',
         textAlign: 'center',
     },
     buttonsContainer: {
+        flex: 2,
         width: '100%',
-        marginBottom: height * 0.05,
+        justifyContent: 'flex-end',
     },
 });

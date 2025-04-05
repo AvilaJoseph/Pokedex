@@ -18,7 +18,7 @@ export default function Navbar({ title = "" }: NavbarProps) {
     });
 
     if (!fontsLoaded) {
-        return null; // or a simple loading view
+        return null; 
     }
 
     return (
