@@ -5,6 +5,7 @@ import {
   StyleSheet, 
   StatusBar,
   ActivityIndicator,
+  TouchableOpacity,
   Animated
 } from 'react-native';
 import {
@@ -13,10 +14,11 @@ import {
   Poppins_500Medium,
   Poppins_600SemiBold
 } from '@expo-google-fonts/poppins';
+import Ionicons from '@expo/vector-icons/Ionicons';
 
 import SearchInput from '../../components/SearchInput';
-import FilterButton from '../../components/FilterButton';
 import PokemonList from '../../components/Pokedex/ListCard';
+import FilterModal from '../../components/FilterModal';
 
 // Mock data
 const pokemons = [
@@ -70,30 +72,10 @@ export default function Pokedex() {
   const [displayedPokemons, setDisplayedPokemons] = useState<PokemonData[]>(pokemons);
   const [selectedTypeFilter, setSelectedTypeFilter] = useState<string | null>(null);
   const [selectedSortFilter, setSelectedSortFilter] = useState<string | null>(null);
+  const [isFilterModalVisible, setIsFilterModalVisible] = useState(false);
   
-  // Animated value for filters container
+  // Animated value for scroll
   const scrollY = useRef(new Animated.Value(0)).current;
-  
-  // Translate Y animation for filters container
-  const filtersTranslateY = scrollY.interpolate({
-    inputRange: [0, 60],
-    outputRange: [0, -60],
-    extrapolate: 'clamp'
-  });
-  
-  // Opacity animation for filters container
-  const filtersOpacity = scrollY.interpolate({
-    inputRange: [0, 30, 60],
-    outputRange: [1, 0.5, 0],
-    extrapolate: 'clamp'
-  });
-  
-  // Height animation for filters container
-  const filtersHeight = scrollY.interpolate({
-    inputRange: [0, 60],
-    outputRange: [60, 0],
-    extrapolate: 'clamp'
-  });
   
   // Load fonts
   const [fontsLoaded] = useFonts({
@@ -122,8 +104,19 @@ export default function Pokedex() {
     }
     
     // Apply sort
-    if (selectedSortFilter === "Menor número") {
-      result.sort((a, b) => parseInt(a.id) - parseInt(b.id));
+    switch (selectedSortFilter) {
+      case 'Menor número':
+        result.sort((a, b) => parseInt(a.id) - parseInt(b.id));
+        break;
+      case 'Maior número':
+        result.sort((a, b) => parseInt(b.id) - parseInt(a.id));
+        break;
+      case 'A-Z':
+        result.sort((a, b) => a.name.localeCompare(b.name));
+        break;
+      case 'Z-A':
+        result.sort((a, b) => b.name.localeCompare(a.name));
+        break;
     }
     
     setDisplayedPokemons(result);
@@ -140,22 +133,6 @@ export default function Pokedex() {
     );
   };
 
-  // Handle type filter
-  const handleTypeFilter = () => {
-    // Toggle between "Todos los tipos" and null
-    setSelectedTypeFilter(prevFilter => 
-      prevFilter === "Todos los tipos" ? null : "Todos los tipos"
-    );
-  };
-
-  // Handle sort filter
-  const handleSortFilter = () => {
-    // Toggle between "Menor número" and null
-    setSelectedSortFilter(prevFilter => 
-      prevFilter === "Menor número" ? null : "Menor número"
-    );
-  };
-
   if (!fontsLoaded) {
     return <ActivityIndicator size="large" color="#0000ff" />;
   }
@@ -166,37 +143,26 @@ export default function Pokedex() {
       
       <View style={styles.headerContainer}>
         <View style={styles.header}>
-          <SearchInput 
-            value={searchQuery}
-            onChangeText={setSearchQuery}
-            onClear={() => setSearchQuery('')}
-          />
+          <View style={styles.searchFilterContainer}>
+            <View style={styles.searchInputContainer}>
+              <SearchInput 
+                value={searchQuery}
+                onChangeText={setSearchQuery}
+                onClear={() => setSearchQuery('')}
+              />
+            </View>
+            <TouchableOpacity 
+              style={styles.filterButtonContainer}
+              onPress={() => setIsFilterModalVisible(true)}
+            >
+              <Ionicons 
+                name="filter" 
+                size={24} 
+                color={selectedSortFilter ? "#007AFF" : "#8E8E93"} 
+              />
+            </TouchableOpacity>
+          </View>
         </View>
-        
-        <Animated.View 
-          style={[
-            styles.filtersContainer, 
-            { 
-              height: filtersHeight,
-              opacity: filtersOpacity,
-              overflow: 'hidden'
-            }
-          ]}
-        >
-          <FilterButton 
-            title="Todos los tipos"
-            onPress={handleTypeFilter}
-            isActive={selectedTypeFilter === "Todos los tipos"}
-            style={styles.filterButton}
-          />
-          
-          <FilterButton 
-            title="Menor número"
-            onPress={handleSortFilter}
-            isActive={selectedSortFilter === "Menor número"}
-            style={styles.filterButton}
-          />
-        </Animated.View>
       </View>
       
       <View style={styles.listWrapper}>
@@ -207,6 +173,13 @@ export default function Pokedex() {
           contentPaddingTop={10}
         />
       </View>
+
+      <FilterModal 
+        isVisible={isFilterModalVisible}
+        onClose={() => setIsFilterModalVisible(false)}
+        onSelectFilter={setSelectedSortFilter}
+        selectedFilter={selectedSortFilter}
+      />
     </SafeAreaView>
   );
 }
@@ -227,16 +200,16 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     backgroundColor: 'white',
   },
-  filtersContainer: {
+  searchFilterContainer: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
-    paddingHorizontal: 16,
-    paddingVertical: 12,
-    backgroundColor: 'white',
+    alignItems: 'center',
   },
-  filterButton: {
+  searchInputContainer: {
     flex: 1,
-    marginHorizontal: 4,
+    marginRight: 10,
+  },
+  filterButtonContainer: {
+    padding: 8,
   },
   listWrapper: {
     flex: 1
