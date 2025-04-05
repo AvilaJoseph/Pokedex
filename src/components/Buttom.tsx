@@ -3,10 +3,10 @@ import { useFonts, Poppins_400Regular, Poppins_500Medium, Poppins_600SemiBold } 
 import React, { ReactNode } from 'react';
 import { ButtonProps } from '../interfaces/buttom.interfaces';
 
-export default function Button({ 
-  title, 
-  onPress, 
-  style, 
+export default function Button({
+  title,
+  onPress,
+  style,
   textStyle,
   icon,
   iconStyle,
@@ -35,14 +35,14 @@ export default function Button({
   } : {};
 
   return (
-    <TouchableOpacity 
+    <TouchableOpacity
       style={[
-        styles.button, 
-        { backgroundColor }, 
+        styles.button,
+        { backgroundColor },
         borderStyle,
         disabled && styles.disabledButton,
         style
-      ]} 
+      ]}
       onPress={onPress}
       disabled={disabled}
       {...rest}
@@ -52,22 +52,20 @@ export default function Button({
         <View style={styles.iconContainer}>
           {React.isValidElement(icon) ? (
             icon
-          ) : typeof icon === 'number' || (typeof icon === 'object' && 'uri' in icon) ? (
-            <Image source={icon as ImageSourcePropType} style={[styles.icon, iconStyle]} />
           ) : null}
         </View>
       )}
-      
+
       {/* Button text */}
       <Text style={[
-        styles.buttonText, 
+        styles.buttonText,
         { color: textColor },
         disabled && styles.disabledText,
         textStyle
       ]}>
         {title}
       </Text>
-      
+
       {/* Second content based on iconPosition */}
       {icon && iconPosition === 'right' && (
         <View style={[styles.iconContainer, styles.iconRight]}>
@@ -88,7 +86,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     width: '100%',
-    height: 50,
+    height: 60,
     borderRadius: 25,
     marginBottom: 15,
   },

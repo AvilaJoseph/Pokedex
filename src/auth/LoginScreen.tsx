@@ -4,24 +4,31 @@ import {
     View,
     SafeAreaView,
     Image,
+    Dimensions,
+    StatusBar,
     TouchableOpacity
 } from 'react-native';
+
+import { Ionicons } from '@expo/vector-icons';
+
 import Navbar from '../components/Navbar';
 
 import {
     useFonts,
     Poppins_400Regular,
-    Poppins_500Medium, // Added Medium
+    Poppins_500Medium,
     Poppins_600SemiBold
 } from '@expo-google-fonts/poppins';
 import Button from '../components/Buttom';
 import GoogleIcon from '../../assets/img/icons/GoogleIcon';
 import AppleIcon from '../../assets/img/icons/AppleIcon';
 
+const { width, height } = Dimensions.get('window');
+
 export default function LoginScreen() {
     const [fontsLoaded] = useFonts({
         Poppins_400Regular,
-        Poppins_500Medium, // Added Medium
+        Poppins_500Medium,
         Poppins_600SemiBold,
     });
 
@@ -30,44 +37,59 @@ export default function LoginScreen() {
     }
 
     return (
-        <View style={styles.container}>
-            <Navbar title='Login' />
+        <SafeAreaView style={styles.container}>
+            <StatusBar backgroundColor="white" barStyle="dark-content" />
+
+            {/* Header with back button and title */}
+            <View style={styles.header}>
+                <Navbar  title='Entrar'/>
+            </View>
+
             <View style={styles.content}>
-                <Image
-                    source={require('./../../assets/img/banner/login.png')}
-                    style={styles.bannerImage}
-                />
+                {/* Character image */}
+                <View style={styles.imageContainer}>
+                    <Image
+                        source={require('./../../assets/img/banner/login.png')}
+                        style={styles.characterImage}
+                        resizeMode="contain"
+                    />
+                </View>
 
-                <Text style={styles.title}>Que bueno verte aqui nuevamente!</Text>
-                <Text style={styles.subtitle}>Como deseas conectarte?</Text>
+                {/* Welcome text */}
+                <View style={styles.textContainer}>
+                    <Text style={styles.title}>Que bueno verte aqui nuevamente!</Text>
+                    <Text style={styles.subtitle}>Como deseas conectarte?</Text>
+                </View>
 
+                {/* Login buttons */}
                 <View style={styles.buttonsContainer}>
                     <Button
                         title="Continuar con Apple"
                         onPress={() => { }}
                         backgroundColor="white"
                         textColor="#333"
-                        icon={<AppleIcon size={22} />}
+                        icon={<AppleIcon size={20} />}
                         borderColor="#E1E1E1"
                     />
+
                     <Button
                         title="Continuar con Google"
                         onPress={() => { }}
                         backgroundColor="white"
                         textColor="#333"
-                        icon={<GoogleIcon size={22} />}
+                        icon={<GoogleIcon size={20} />}
                         borderColor="#E1E1E1"
                     />
+
                     <Button
-                        title="Continuar con un Email"
+                        title="Continuar con un e-mail"
                         onPress={() => { }}
                         backgroundColor="#173EA5"
                         textColor="white"
-                        borderColor="#173EA5"
                     />
                 </View>
             </View>
-        </View>
+        </SafeAreaView>
     );
 }
 
@@ -76,68 +98,63 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: 'white',
     },
+    header: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        paddingHorizontal: 20,
+        height: 60,
+    },
+    backButton: {
+        width: 40,
+        height: 40,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    backButtonText: {
+        fontSize: 24,
+        fontWeight: '300',
+    },
+    headerTitle: {
+        fontFamily: 'Poppins_500Medium',
+        fontSize: 18,
+    },
     content: {
         flex: 1,
-        alignItems: 'center',
-        paddingTop: 30,
-        paddingHorizontal: 30,
+        paddingHorizontal: 32,
+        justifyContent: 'space-between',
+        paddingBottom: 40,
     },
-    bannerImage: {
-        marginBottom: 20,
-        resizeMode: 'contain',
+    imageContainer: {
+        flex: 2,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: 20,
+    },
+    characterImage: {
+        width: width * 0.5,
+        height: width * 0.5,
+    },
+    textContainer: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
     },
     title: {
-        fontFamily: 'Poppins_500Medium', // Medium weight
-        fontSize: 28,
+        fontFamily: 'Poppins_500Medium',
+        fontSize: 22,
         textAlign: 'center',
-        marginBottom: 5,
+        marginBottom: 8,
     },
     subtitle: {
         fontFamily: 'Poppins_400Regular',
         fontSize: 16,
         color: '#666666',
         textAlign: 'center',
-        marginBottom: 30,
     },
     buttonsContainer: {
+        flex: 2,
         width: '100%',
-        alignItems: 'center',
+        justifyContent: 'flex-end',
     },
-    button: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: 'white',
-        width: '100%',
-        height: 50,
-        borderRadius: 25,
-        marginBottom: 15,
-        borderWidth: 1,
-        borderColor: '#E1E1E1',
-    },
-    buttonText: {
-        fontFamily: 'Poppins_400Regular',
-        fontSize: 20,
-        color: '#333',
-    },
-    icon: {
-        width: 22,
-        height: 22,
-        marginRight: 10,
-    },
-    emailButton: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: '#2B5CD6',
-        width: '100%',
-        height: 50,
-        borderRadius: 25,
-        marginBottom: 15,
-    },
-    emailButtonText: {
-        fontFamily: 'Poppins_400Regular',
-        fontSize: 16,
-        color: 'white',
-    }
 });

@@ -1,4 +1,4 @@
-// components/icons/AppleIcon.tsx
+// assets/img/icons/AppleIcon.js
 import * as React from "react";
 import Svg, { Path } from "react-native-svg";
 
