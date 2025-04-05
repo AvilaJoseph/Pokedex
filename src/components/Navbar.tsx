@@ -2,10 +2,25 @@ import { StyleSheet, Text, View, SafeAreaView, Platform, StatusBar, Dimensions }
 import NavbarProps from './../interfaces/navbar_intefaces';
 import Ionicons from '@expo/vector-icons/Ionicons';
 
+import { 
+    useFonts,
+    Poppins_400Regular,
+    Poppins_600SemiBold 
+} from '@expo-google-fonts/poppins';
+
 // Get screen dimensions for responsive sizing
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 
 export default function Navbar({ title = "" }: NavbarProps) {
+    const [fontsLoaded] = useFonts({
+        Poppins_400Regular,
+        Poppins_600SemiBold,
+    });
+
+    if (!fontsLoaded) {
+        return null; // or a simple loading view
+    }
+
     return (
         <SafeAreaView style={styles.safeArea}>
             <View style={styles.container}>
@@ -16,7 +31,6 @@ export default function Navbar({ title = "" }: NavbarProps) {
                     <Text style={styles.titleText}>{title}</Text>
                 </View>
                 <View style={styles.rightSection}>
-                    {/* Empty view to balance the layout */}
                 </View>
             </View>
         </SafeAreaView>
@@ -52,7 +66,7 @@ const styles = StyleSheet.create({
     },
     titleText: {
         fontSize: Math.max(16, SCREEN_WIDTH * 0.045), // Responsive font size with minimum
-        fontWeight: '600',
+        fontFamily: 'Poppins_600SemiBold', // Changed from fontWeight to fontFamily
         color: '#333',
     },
 })
