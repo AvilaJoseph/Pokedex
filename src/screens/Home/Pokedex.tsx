@@ -34,7 +34,7 @@ const pokemons = [
     id: '002',
     name: 'Ivysaur',
     imageUrl: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/2.png',
-    types: ['Grama', 'Venenoso'],
+    types: ['noturno', 'Venenoso'],
     generation: 'Geração I',
     isFavorite: false
   },

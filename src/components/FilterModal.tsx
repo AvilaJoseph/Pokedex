@@ -181,7 +181,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0,0,0,0.5)',
   },
   modalContainer: {
-    backgroundColor: '#2C3E50',
+    backgroundColor: 'white',
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     paddingBottom: 20,
@@ -197,7 +197,7 @@ const styles = StyleSheet.create({
     marginBottom: 12,
   },
   filterSectionTitle: {
-    color: 'white',
+    color: 'black',
     fontSize: 16,
     fontWeight: '600',
   },
@@ -211,9 +211,11 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(255,255,255,0.1)',
     padding: 12,
     borderRadius: 8,
+    borderBottomWidth: 1,
+    borderBottomColor: '#F2F2F2',
   },
   selectText: {
-    color: 'white',
+    color: 'black',
     fontSize: 14,
   },
   filterOption: {
@@ -222,12 +224,14 @@ const styles = StyleSheet.create({
     margin: 4,
     borderRadius: 20,
     backgroundColor: 'rgba(255,255,255,0.1)',
+    borderWidth: 1,
+    borderColor: 'black',
   },
   selectedFilterOption: {
     backgroundColor: '#007AFF',
   },
   filterOptionText: {
-    color: 'white',
+    color: 'black',
     fontSize: 14,
     textAlign: 'center',
   },
@@ -248,7 +252,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   cancelButton: {
-    backgroundColor: 'rgba(255,255,255,0.1)',
+    backgroundColor: 'rgba(255, 10, 10, 0.84)',
   },
   confirmButton: {
     backgroundColor: '#007AFF',
@@ -258,7 +262,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   confirmButtonText: {
-    color: 'white',
+    color: 'black',
     fontSize: 16,
     fontWeight: '600',
   }
