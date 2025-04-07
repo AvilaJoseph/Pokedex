@@ -192,7 +192,7 @@ const PokemonCard: React.FC<PokemonCardProps> = ({
 
 const styles = StyleSheet.create({
   container: {
-    borderRadius: 12,
+    borderRadius: 24,
     marginBottom: 12,
     overflow: 'hidden',
     position: 'relative',
@@ -217,7 +217,7 @@ const styles = StyleSheet.create({
   infoContainer: {
     flex: 1,
     justifyContent: 'center',
-    padding: 16,
+    paddingTop: 5,
     paddingLeft: 20,
     paddingRight: 10,
   },

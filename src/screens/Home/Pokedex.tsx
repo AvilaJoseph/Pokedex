@@ -19,6 +19,7 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import SearchInput from '../../components/SearchInput';
 import PokemonList from '../../components/Pokedex/ListCard';
 import FilterModal from '../../components/FilterModal';
+import MenuBar from '../../components/MenuBar'; // Import the MenuBar component
 
 // Mock data
 const pokemons = [
@@ -80,6 +81,7 @@ export default function Pokedex() {
   const [selectedGenerationFilter, setSelectedGenerationFilter] = useState<string | null>(null);
   const [selectedSortFilter, setSelectedSortFilter] = useState<string | null>(null);
   const [isFilterModalVisible, setIsFilterModalVisible] = useState(false);
+  const [activeScreen, setActiveScreen] = useState('PokedexScreen'); // Add state for active screen
   
   // Animated value for scroll
   const scrollY = useRef(new Animated.Value(0)).current;
@@ -90,6 +92,12 @@ export default function Pokedex() {
     Poppins_500Medium,
     Poppins_600SemiBold,
   });
+
+  // Handle screen navigation
+  const handleScreenChange = (screenName: string) => {
+    setActiveScreen(screenName);
+    // Here you would normally navigate to the screen if using React Navigation
+  };
 
   // Handle search and filter updates together
   useEffect(() => {
@@ -196,6 +204,8 @@ export default function Pokedex() {
           onToggleFavorite={toggleFavorite}
           scrollY={scrollY}
           contentPaddingTop={10}
+          // Adjust PokemonList to handle bottom padding internally or
+          // update your PokemonList component to accept contentPaddingBottom
         />
       </View>
 
@@ -206,6 +216,12 @@ export default function Pokedex() {
         initialTypeFilters={selectedTypeFilters}
         initialGenerationFilter={selectedGenerationFilter}
         initialSortFilter={selectedSortFilter}
+      />
+      
+      {/* Add the MenuBar component at the bottom */}
+      <MenuBar 
+        activeScreen={activeScreen}
+        onScreenChange={handleScreenChange}
       />
     </SafeAreaView>
   );
