@@ -295,6 +295,7 @@ const styles = StyleSheet.create({
   
   favoriteButton: {
     flex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.3)', // negro con 30% de opacidad
     justifyContent: 'center',
     alignItems: 'center',
     borderWidth: 1,
