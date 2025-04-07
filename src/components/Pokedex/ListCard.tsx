@@ -23,13 +23,15 @@ interface PokemonListProps {
   onToggleFavorite: (id: string) => void;
   scrollY: Animated.Value;
   contentPaddingTop?: number;
+  contentPaddingBottom?: number;
 }
 
 const PokemonList: React.FC<PokemonListProps> = ({ 
   pokemons, 
   onToggleFavorite,
   scrollY,
-  contentPaddingTop = 16
+  contentPaddingTop = 16,
+  contentPaddingBottom = 20
 }) => {
   if (pokemons.length === 0) {
     return <View style={styles.emptyContainer} />;
@@ -41,7 +43,10 @@ const PokemonList: React.FC<PokemonListProps> = ({
       keyExtractor={(item) => item.id}
       contentContainerStyle={[
         styles.listContainer,
-        { paddingTop: contentPaddingTop }
+        { 
+          paddingTop: contentPaddingTop,
+          paddingBottom: contentPaddingBottom
+        }
       ]}
       onScroll={Animated.event(
         [{ nativeEvent: { contentOffset: { y: scrollY } } }],
@@ -72,7 +77,6 @@ const styles = StyleSheet.create({
   },
   listContainer: {
     paddingHorizontal: 16,
-    paddingBottom: 20,
     flexGrow: 1
   },
   emptyContainer: {

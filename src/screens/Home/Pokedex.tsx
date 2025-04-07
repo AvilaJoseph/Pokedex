@@ -19,7 +19,7 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import SearchInput from '../../components/SearchInput';
 import PokemonList from '../../components/Pokedex/ListCard';
 import FilterModal from '../../components/FilterModal';
-import MenuBar from '../../components/MenuBar'; // Import the MenuBar component
+import MenuBar from '../../components/MenuBar';
 
 // Mock data
 const pokemons = [
@@ -81,10 +81,13 @@ export default function Pokedex() {
   const [selectedGenerationFilter, setSelectedGenerationFilter] = useState<string | null>(null);
   const [selectedSortFilter, setSelectedSortFilter] = useState<string | null>(null);
   const [isFilterModalVisible, setIsFilterModalVisible] = useState(false);
-  const [activeScreen, setActiveScreen] = useState('PokedexScreen'); // Add state for active screen
+  const [activeScreen, setActiveScreen] = useState('PokedexScreen');
   
   // Animated value for scroll
   const scrollY = useRef(new Animated.Value(0)).current;
+  
+  // Calculate MenuBar height for bottom padding - 60px is a common height for tab bars
+  const MENU_BAR_HEIGHT = 60;
   
   // Load fonts
   const [fontsLoaded] = useFonts({
@@ -204,8 +207,7 @@ export default function Pokedex() {
           onToggleFavorite={toggleFavorite}
           scrollY={scrollY}
           contentPaddingTop={10}
-          // Adjust PokemonList to handle bottom padding internally or
-          // update your PokemonList component to accept contentPaddingBottom
+          contentPaddingBottom={MENU_BAR_HEIGHT + 20} // Add padding at the bottom for MenuBar
         />
       </View>
 
@@ -255,6 +257,6 @@ const styles = StyleSheet.create({
     padding: 8,
   },
   listWrapper: {
-    flex: 1
+    flex: 1,
   }
 });
