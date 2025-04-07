@@ -253,9 +253,11 @@ const styles = StyleSheet.create({
     fontFamily: 'Poppins_500Medium',
   },
   imageContainer: {
-    width: 130,
+    width: 150,
     borderTopRightRadius: 12,
     borderBottomRightRadius: 12,
+    borderTopLeftRadius:18,
+    borderBottomLeftRadius:18,
     justifyContent: 'center',
     alignItems: 'center',
     position: 'relative',
@@ -287,7 +289,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     zIndex: 5,
-  }
+    borderWidth: 1.5,
+    borderColor: '#FFFFFF',
+  },  
 });
 
 export default PokemonCard;
