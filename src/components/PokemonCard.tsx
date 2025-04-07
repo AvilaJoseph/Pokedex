@@ -30,7 +30,6 @@ const TypeBadge: React.FC<TypeBadgeProps> = ({ type }) => {
     voador: { color: '#FFF', icon: 'paper-plane', background: '#89BDFF', iconType: 'ionicon' },
     normal: { color: '#FFF', icon: 'circle-outline', background: '#A8A878', iconType: 'material' },
     noturno: { color: '#FFF', icon: 'moon-waning-crescent', background: '#705848', iconType: 'material' },
-    // Añadir más tipos según sea necesario
   };
 
   const config = typeConfig[type.toLowerCase()] || { color: '#FFF', icon: 'help-circle', background: '#A8A878', iconType: 'ionicon' };
@@ -241,7 +240,7 @@ const styles = StyleSheet.create({
   number: {
     fontSize: 14,
     color: '#666',
-    fontFamily: 'Poppins_400Regular',
+    fontFamily: 'Poppins_600SemiBold',
   },
   name: {
     fontSize: 22,
