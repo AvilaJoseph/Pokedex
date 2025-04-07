@@ -25,7 +25,7 @@ const SearchInput: React.FC<SearchInputProps> = ({
 }) => {
   return (
     <View style={styles.container}>
-      <AntDesign name="search1" size={22} color="#A0A0A0" style={styles.searchIcon} />
+      <AntDesign name="search1" size={22} color="#666666" style={styles.searchIcon} />
       
       <TextInput
         style={styles.input}
