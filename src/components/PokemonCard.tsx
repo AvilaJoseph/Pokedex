@@ -272,8 +272,8 @@ const styles = StyleSheet.create({
     zIndex: 1,
   },
   image: {
-    width: '90%',
-    height: '90%',
+    width: '70%',
+    height: '78%',
     zIndex: 2,
   },
   favoriteButton: {
