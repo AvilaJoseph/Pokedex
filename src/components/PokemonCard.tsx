@@ -5,7 +5,8 @@ import {
   StyleSheet,
   Image,
   TouchableOpacity,
-  Dimensions
+  Dimensions,
+  ImageBackground
 } from 'react-native';
 import { AntDesign, Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 
@@ -18,17 +19,11 @@ interface TypeBadgeProps {
 
 // Componente para los badges de tipo
 const TypeBadge: React.FC<TypeBadgeProps> = ({ type }) => {
-  // Mapeo de tipos a colores y íconos
+  // Mapeo de tipos a colores y íconos (solo los que se usan)
   const typeConfig: Record<string, { color: string, icon: any, background: string, iconType: string }> = {
-    fogo: { color: '#FFF', icon: 'fire', background: '#F08030', iconType: 'material' },
     fuego: { color: '#FFF', icon: 'fire', background: '#F08030', iconType: 'material' },
     grama: { color: '#FFF', icon: 'leaf', background: '#78C850', iconType: 'ionicon' },
-    gelo: { color: '#FFF', icon: 'snowflake', background: '#98D8D8', iconType: 'material' },
-    fantasma: { color: '#FFF', icon: 'ghost', background: '#705898', iconType: 'material' },
     venenoso: { color: '#FFF', icon: 'flask', background: '#A040A0', iconType: 'ionicon' },
-    veneno: { color: '#FFF', icon: 'flask', background: '#A040A0', iconType: 'ionicon' },
-    voador: { color: '#FFF', icon: 'paper-plane', background: '#89BDFF', iconType: 'ionicon' },
-    normal: { color: '#FFF', icon: 'circle-outline', background: '#A8A878', iconType: 'material' },
     noturno: { color: '#FFF', icon: 'moon-waning-crescent', background: '#705848', iconType: 'material' },
   };
 
@@ -75,70 +70,55 @@ const PokemonCard: React.FC<PokemonCardProps> = ({
   // Format Pokemon number (e.g., 1 -> "Nº001")
   const formattedNumber = `Nº${id.padStart(3, '0')}`;
 
-  // Determinar el color de fondo de la imagen según el tipo principal
-  const getTypeColors = () => {
+  // Determinar el color de fondo de la imagen y la imagen de fondo según el tipo principal
+  const getTypeInfo = () => {
     const primaryType = types[0]?.toLowerCase();
+    
+    // Definir las rutas de las imágenes de fondo sólo para los tipos que se usan
+    // Nota: Reemplazar estas rutas con las ubicaciones reales de tus imágenes
+    const typeBackgrounds = {
+      fuego: require('../../assets/img/icons/pokemonCard/Types/fuego.png'),
+      grama: require('../../assets/img/icons/pokemonCard/Types/planta.png'),
+      noturno: require('../../assets/img/icons/pokemonCard/Types/nocturno.png'),
+      venenoso: require('../../assets/img/icons/pokemonCard/Types/veneno.png'),
+    };
+    
     switch (primaryType) {
-      case 'fogo':
       case 'fuego':
         return {
           main: '#F08030',
           card: '#FEEAC9',
-          circle: 'rgba(255, 156, 84, 0.7)'
+          backgroundImage: typeBackgrounds.fuego
         };
       case 'grama':
         return {
           main: '#78C850',
-          card: '#E6F1E6', 
-          circle: 'rgba(142, 214, 126, 0.7)'
-        };
-      case 'agua':
-        return {
-          main: '#6890F0',
-          card: '#E6F1FF',
-          circle: 'rgba(131, 169, 237, 0.7)'
-        };
-      case 'voador':
-        return {
-          main: '#89BDFF', 
-          card: '#EAF4FF',
-          circle: 'rgba(157, 195, 242, 0.7)'
-        };
-      case 'gelo':
-        return {
-          main: '#98D8D8',
-          card: '#EBF7F7',
-          circle: 'rgba(170, 224, 222, 0.7)'
-        };
-      case 'fantasma':
-        return {
-          main: '#705898',
-          card: '#E8E4F1',
-          circle: 'rgba(138, 119, 177, 0.7)'
+          card: '#E6F1E6',
+          backgroundImage: typeBackgrounds.grama
         };
       case 'noturno':
         return {
           main: '#705848',
           card: '#EDEAE7',
-          circle: 'rgba(133, 119, 108, 0.7)'
+          backgroundImage: typeBackgrounds.noturno
         };
       case 'venenoso':
-      case 'veneno':
         return {
           main: '#A040A0',
           card: '#F1E6F1',
-          circle: 'rgba(184, 106, 184, 0.7)'
+          backgroundImage: typeBackgrounds.venenoso
         };
       default:
+        // Usar fuego como fallback si el tipo no está en la lista
         return {
-          main: '#A8A878',
-          card: '#F0F0E5',
-          circle: 'rgba(190, 190, 154, 0.7)'
+          main: '#F08030',
+          card: '#FEEAC9',
+          backgroundImage: typeBackgrounds.fuego
         };
     }
   };
 
-  const colors = getTypeColors();
+  const typeInfo = getTypeInfo();
   
   // Calculate if we need more height due to stacked badges on small screens
   const needsExtraHeight = isSmallScreen && types.length > 1;
@@ -149,7 +129,7 @@ const PokemonCard: React.FC<PokemonCardProps> = ({
       style={[
         styles.container, 
         { 
-          backgroundColor: colors.card,
+          backgroundColor: typeInfo.card,
           height: cardHeight 
         }
       ]}
@@ -176,12 +156,16 @@ const PokemonCard: React.FC<PokemonCardProps> = ({
       <View style={[
         styles.imageContainer, 
         { 
-          backgroundColor: colors.main,
+          backgroundColor: typeInfo.main,
           height: cardHeight 
         }
       ]}>
-        {/* Background circle */}
-        <View style={[styles.backgroundCircle, { backgroundColor: colors.circle }]} />
+        {/* Imagen de fondo según el tipo */}
+        <Image
+          source={typeInfo.backgroundImage}
+          style={styles.backgroundTypeImage}
+          resizeMode="contain"
+        />
         
         {/* Pokemon image */}
         <Image
@@ -280,12 +264,12 @@ const styles = StyleSheet.create({
     zIndex: 1,
     // height is now set dynamically in the component
   },
-  backgroundCircle: {
+  backgroundTypeImage: {
     position: 'absolute',
     width: 110,
     height: 110,
-    borderRadius: 55,
     opacity: 0.8,
+    zIndex: 1,
   },
   image: {
     width: '90%',
