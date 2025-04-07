@@ -1,4 +1,6 @@
 import React from 'react';
+import { BlurView } from 'expo-blur';
+
 import {
   View,
   Text,
@@ -73,7 +75,7 @@ const PokemonCard: React.FC<PokemonCardProps> = ({
   // Determinar el color de fondo de la imagen y la imagen de fondo según el tipo principal
   const getTypeInfo = () => {
     const primaryType = types[0]?.toLowerCase();
-    
+
     // Definir las rutas de las imágenes de fondo sólo para los tipos que se usan
     // Nota: Reemplazar estas rutas con las ubicaciones reales de tus imágenes
     const typeBackgrounds = {
@@ -82,7 +84,7 @@ const PokemonCard: React.FC<PokemonCardProps> = ({
       noturno: require('../../assets/img/icons/pokemonCard/Types/nocturno.png'),
       venenoso: require('../../assets/img/icons/pokemonCard/Types/veneno.png'),
     };
-    
+
     switch (primaryType) {
       case 'fuego':
         return {
@@ -119,7 +121,7 @@ const PokemonCard: React.FC<PokemonCardProps> = ({
   };
 
   const typeInfo = getTypeInfo();
-  
+
   // Calculate if we need more height due to stacked badges on small screens
   const needsExtraHeight = isSmallScreen && types.length > 1;
   const cardHeight = needsExtraHeight ? 180 : 165;
@@ -127,10 +129,10 @@ const PokemonCard: React.FC<PokemonCardProps> = ({
   return (
     <TouchableOpacity
       style={[
-        styles.container, 
-        { 
+        styles.container,
+        {
           backgroundColor: typeInfo.card,
-          height: cardHeight 
+          height: cardHeight
         }
       ]}
       onPress={onPress}
@@ -142,7 +144,7 @@ const PokemonCard: React.FC<PokemonCardProps> = ({
           <View key={i} style={styles.stripe} />
         ))}
       </View>
-      
+
       <View style={styles.infoContainer}>
         <Text style={styles.number}>{formattedNumber}</Text>
         <Text style={styles.name}>{name}</Text>
@@ -152,12 +154,12 @@ const PokemonCard: React.FC<PokemonCardProps> = ({
           ))}
         </View>
       </View>
-      
+
       <View style={[
-        styles.imageContainer, 
-        { 
+        styles.imageContainer,
+        {
           backgroundColor: typeInfo.main,
-          height: cardHeight 
+          height: cardHeight
         }
       ]}>
         {/* Imagen de fondo según el tipo */}
@@ -166,25 +168,27 @@ const PokemonCard: React.FC<PokemonCardProps> = ({
           style={styles.backgroundTypeImage}
           resizeMode="contain"
         />
-        
+
         {/* Pokemon image */}
         <Image
           source={{ uri: imageUrl }}
           style={styles.image}
           resizeMode="contain"
         />
-        
-        <TouchableOpacity
-          style={styles.favoriteButton}
-          onPress={onToggleFavorite}
-          hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
-        >
-          <AntDesign
-            name={isFavorite ? "heart" : "hearto"}
-            size={18}
-            color={isFavorite ? "#FF6B6B" : "#FFF"}
-          />
-        </TouchableOpacity>
+
+        <BlurView intensity={20} tint="light" style={styles.blurWrapper}>
+          <TouchableOpacity
+            style={styles.favoriteButton}
+            onPress={onToggleFavorite}
+            hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+          >
+            <AntDesign
+              name={isFavorite ? "heart" : "hearto"}
+              size={18}
+              color={isFavorite ? "#FF6B6B" : "#FFF"}
+            />
+          </TouchableOpacity>
+        </BlurView>
       </View>
     </TouchableOpacity>
   );
@@ -256,8 +260,8 @@ const styles = StyleSheet.create({
     width: 150,
     borderTopRightRadius: 12,
     borderBottomRightRadius: 12,
-    borderTopLeftRadius:18,
-    borderBottomLeftRadius:18,
+    borderTopLeftRadius: 18,
+    borderBottomLeftRadius: 18,
     justifyContent: 'center',
     alignItems: 'center',
     position: 'relative',
@@ -278,20 +282,25 @@ const styles = StyleSheet.create({
     height: '78%',
     zIndex: 2,
   },
-  favoriteButton: {
+  blurWrapper: {
     position: 'absolute',
     top: 10,
     right: 10,
-    backgroundColor: 'rgba(255, 255, 255, 0.3)',
-    borderRadius: 20,
     width: 32,
     height: 32,
+    borderRadius: 20,
+    overflow: 'hidden', // para que el blur no se salga del borde
+    zIndex: 5,
+  },
+  
+  favoriteButton: {
+    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    zIndex: 5,
-    borderWidth: 1.5,
+    borderWidth: 1,
     borderColor: '#FFFFFF',
-  },  
+    borderRadius: 20,
+  },
 });
 
 export default PokemonCard;
