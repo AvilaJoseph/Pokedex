@@ -234,7 +234,7 @@ const styles = StyleSheet.create({
     fontSize: 22,
     color: '#333',
     fontFamily: 'Poppins_600SemiBold',
-    marginBottom: 8,
+    marginBottom: 0
   },
   typesContainer: {
     flexDirection: 'row',
@@ -257,7 +257,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Poppins_500Medium',
   },
   imageContainer: {
-    width: 150,
+    width: 165,
     borderTopRightRadius: 12,
     borderBottomRightRadius: 12,
     borderTopLeftRadius: 18,
@@ -273,13 +273,13 @@ const styles = StyleSheet.create({
   backgroundTypeImage: {
     position: 'absolute',
     width: 110,
-    height: 110,
+    height: 140,
     opacity: 0.8,
     zIndex: 1,
   },
   image: {
-    width: '70%',
-    height: '78%',
+    width: '60%',
+    height: '58%',
     zIndex: 2,
   },
   blurWrapper: {

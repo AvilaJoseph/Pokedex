@@ -1,10 +1,11 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import Pokedex from './src/screens/Home/Pokedex';
+import RegionsScreen from './src/screens/Home/RegionsScreen';
 
 export default function App() {
   return (
-    <Pokedex></Pokedex>
+    <RegionsScreen></RegionsScreen>
   );
 }
 
