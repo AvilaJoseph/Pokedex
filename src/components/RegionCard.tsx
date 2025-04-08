@@ -34,7 +34,7 @@ const RegionCard: React.FC<RegionCardProps> = ({
   
   // Calculamos la altura basada en el ancho de la pantalla (proporción)
   const cardHeight = Math.min(100, width * 0.24);
-  const imageSize = Math.min(40, width * 0.1);
+  const imageSize = Math.min(80, width * 0.8);
   const fontSize = width < 350 ? 16 : 20;
   const subtitleSize = width < 350 ? 10 : 12;
   
@@ -136,7 +136,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   starterImage: {
-    marginLeft: 5,
+    marginLeft: 0,
   },
   selectedIndicator: {
     position: 'absolute',

@@ -31,7 +31,7 @@ const regionData: RegionData[] = [
   {
     id: '1',
     name: 'Kanto',
-    generation: '1ª GERAÇÃO',
+    generation: '1ª Generación',
     backgroundImage: 'https://archives.bulbagarden.net/media/upload/0/08/Kanto_HGSS.png',
     starterImages: [
       'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png',
@@ -42,7 +42,7 @@ const regionData: RegionData[] = [
   {
     id: '2',
     name: 'Johto',
-    generation: '2ª GERAÇÃO',
+    generation: '2ª Generación',
     backgroundImage: 'https://archives.bulbagarden.net/media/upload/6/64/JohtoMap.png',
     starterImages: [
       'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/152.png',
@@ -53,7 +53,7 @@ const regionData: RegionData[] = [
   {
     id: '3',
     name: 'Hoenn',
-    generation: '3ª GERAÇÃO',
+    generation: '3ª Generación',
     backgroundImage: 'https://archives.bulbagarden.net/media/upload/8/85/Hoenn_ORAS.png',
     starterImages: [
       'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/252.png',
@@ -64,7 +64,7 @@ const regionData: RegionData[] = [
   {
     id: '4',
     name: 'Sinnoh',
-    generation: '4ª GERAÇÃO',
+    generation: '4ª Generación',
     backgroundImage: 'https://archives.bulbagarden.net/media/upload/0/08/Sinnoh_BDSP_artwork.png',
     starterImages: [
       'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/387.png',
@@ -75,7 +75,7 @@ const regionData: RegionData[] = [
   {
     id: '5',
     name: 'Unova',
-    generation: '5ª GERAÇÃO',
+    generation: '5ª Generación',
     backgroundImage: 'https://archives.bulbagarden.net/media/upload/f/fc/Unova_B2W2_map.png',
     starterImages: [
       'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/495.png',
@@ -86,7 +86,7 @@ const regionData: RegionData[] = [
   {
     id: '6',
     name: 'Kalos',
-    generation: '6ª GERAÇÃO',
+    generation: '6ª Generación',
     backgroundImage: 'https://archives.bulbagarden.net/media/upload/8/8a/Kalos_alt.png',
     starterImages: [
       'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/650.png',
@@ -97,7 +97,7 @@ const regionData: RegionData[] = [
   {
     id: '7',
     name: 'Alola',
-    generation: '7ª GERAÇÃO',
+    generation: '7ª Generación',
     backgroundImage: 'https://archives.bulbagarden.net/media/upload/0/0b/Alola_USUM_artwork.png',
     starterImages: [
       'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/722.png',
@@ -108,7 +108,7 @@ const regionData: RegionData[] = [
   {
     id: '8',
     name: 'Galar',
-    generation: '8ª GERAÇÃO',
+    generation: '8ª Generación',
     backgroundImage: 'https://archives.bulbagarden.net/media/upload/c/ce/Galar_artwork.png',
     starterImages: [
       'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/810.png',
@@ -170,7 +170,7 @@ export default function RegionsScreen() {
       <StatusBar backgroundColor="white" barStyle="dark-content" />
       
       <View style={[styles.headerContainer, headerPadding]}>
-        <Text style={[styles.headerTitle, { fontSize: headerFontSize }]}>Regiões</Text>
+        <Text style={[styles.headerTitle, { fontSize: headerFontSize }]}>Regiones</Text>
       </View>
       
       <ScrollView 
@@ -197,7 +197,6 @@ export default function RegionsScreen() {
         ))}
       </ScrollView>
       
-      {/* Add the MenuBar component at the bottom, just like in Pokedex */}
       <MenuBar 
         activeScreen={activeScreen}
         onScreenChange={handleScreenChange}
