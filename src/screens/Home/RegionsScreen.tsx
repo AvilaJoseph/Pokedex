@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   SafeAreaView, 
   View, 
@@ -6,7 +6,10 @@ import {
   StyleSheet, 
   StatusBar,
   ScrollView,
-  ActivityIndicator
+  ActivityIndicator,
+  useWindowDimensions,
+  Platform,
+  Dimensions
 } from 'react-native';
 import {
   useFonts,
@@ -118,9 +121,24 @@ const regionData: RegionData[] = [
 export default function RegionsScreen() {
   const [selectedRegion, setSelectedRegion] = useState('1'); // Default to Kanto
   const [activeScreen, setActiveScreen] = useState('RegionsScreen');
+  const [paddingBottom, setPaddingBottom] = useState(80); // Default padding
   
-  // Calculate MenuBar height for bottom padding - 60px is a common height for tab bars
-  const MENU_BAR_HEIGHT = 60;
+  // Get screen dimensions for responsive layout
+  const { width, height } = useWindowDimensions();
+  
+  // Calculate dynamic font sizes and spacings based on screen width
+  const headerFontSize = width < 350 ? 20 : 24;
+  const headerPadding = {
+    paddingVertical: width < 350 ? 12 : 16,
+    paddingHorizontal: width < 350 ? 16 : 20,
+  };
+  
+  // Recalculate padding for MenuBar based on screen size
+  useEffect(() => {
+    // Calculate MenuBar height for bottom padding - adjust for different screen sizes
+    const MENU_BAR_HEIGHT = width < 350 ? 50 : 60;
+    setPaddingBottom(MENU_BAR_HEIGHT + 20);
+  }, [width]);
   
   // Load fonts
   const [fontsLoaded] = useFonts({
@@ -144,19 +162,25 @@ export default function RegionsScreen() {
     return <ActivityIndicator size="large" color="#0075BE" />;
   }
 
+  // Calculate horizontal padding based on screen width
+  const horizontalPadding = width * 0.04; // 4% of screen width
+
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar backgroundColor="white" barStyle="dark-content" />
       
-      <View style={styles.headerContainer}>
-        <Text style={styles.headerTitle}>Regiões</Text>
+      <View style={[styles.headerContainer, headerPadding]}>
+        <Text style={[styles.headerTitle, { fontSize: headerFontSize }]}>Regiões</Text>
       </View>
       
       <ScrollView 
         style={styles.scrollView}
         contentContainerStyle={[
           styles.scrollViewContent,
-          { paddingBottom: MENU_BAR_HEIGHT + 20 } // Add padding for MenuBar
+          { 
+            paddingBottom: paddingBottom,
+            paddingHorizontal: horizontalPadding
+          }
         ]}
         showsVerticalScrollIndicator={false}
       >
@@ -188,14 +212,11 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   headerContainer: {
-    paddingVertical: 16,
-    paddingHorizontal: 20,
     backgroundColor: 'white',
     borderBottomWidth: 1,
     borderBottomColor: '#F2F2F2',
   },
   headerTitle: {
-    fontSize: 24,
     fontFamily: 'Poppins_600SemiBold',
     color: '#212121',
   },
@@ -203,7 +224,6 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   scrollViewContent: {
-    paddingHorizontal: 16,
     paddingTop: 16,
   },
 });

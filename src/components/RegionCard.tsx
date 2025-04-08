@@ -1,8 +1,17 @@
 import React from 'react';
-import { View, Text, StyleSheet, ImageBackground, TouchableOpacity, Image } from 'react-native';
+import { 
+  View, 
+  Text, 
+  StyleSheet, 
+  ImageBackground, 
+  TouchableOpacity, 
+  Image, 
+  Dimensions,
+  useWindowDimensions 
+} from 'react-native';
 import { useFonts, Poppins_600SemiBold, Poppins_500Medium } from '@expo-google-fonts/poppins';
 
-// Asegúrate de exportar la interfaz de props para que pueda ser usado externamente
+// Export interface para props
 export interface RegionCardProps {
   name: string;
   generation: string;
@@ -20,6 +29,15 @@ const RegionCard: React.FC<RegionCardProps> = ({
   selected = false,
   onPress
 }) => {
+  // Obtenemos dimensiones de la pantalla para adaptarnos
+  const { width } = useWindowDimensions();
+  
+  // Calculamos la altura basada en el ancho de la pantalla (proporción)
+  const cardHeight = Math.min(100, width * 0.24);
+  const imageSize = Math.min(40, width * 0.1);
+  const fontSize = width < 350 ? 16 : 20;
+  const subtitleSize = width < 350 ? 10 : 12;
+  
   // Load fonts
   const [fontsLoaded] = useFonts({
     Poppins_600SemiBold,
@@ -32,7 +50,7 @@ const RegionCard: React.FC<RegionCardProps> = ({
 
   return (
     <TouchableOpacity 
-      style={styles.cardContainer} 
+      style={[styles.cardContainer, { height: cardHeight }]} 
       activeOpacity={0.9}
       onPress={onPress}
     >
@@ -44,8 +62,8 @@ const RegionCard: React.FC<RegionCardProps> = ({
         <View style={styles.overlay} />
         <View style={styles.contentContainer}>
           <View style={styles.textContainer}>
-            <Text style={styles.regionName}>{name}</Text>
-            <Text style={styles.generationText}>{generation}</Text>
+            <Text style={[styles.regionName, { fontSize }]}>{name}</Text>
+            <Text style={[styles.generationText, { fontSize: subtitleSize }]}>{generation}</Text>
           </View>
           
           <View style={styles.startersContainer}>
@@ -53,12 +71,11 @@ const RegionCard: React.FC<RegionCardProps> = ({
               <Image 
                 key={index} 
                 source={{ uri: imageUrl }} 
-                style={styles.starterImage}
+                style={[styles.starterImage, { width: imageSize, height: imageSize }]}
                 resizeMode="contain"
               />
             ))}
           </View>
-          
         </View>
       </ImageBackground>
     </TouchableOpacity>
@@ -67,7 +84,7 @@ const RegionCard: React.FC<RegionCardProps> = ({
 
 const styles = StyleSheet.create({
   cardContainer: {
-    height: 100,
+    width: '100%',
     marginBottom: 10,
     borderRadius: 16,
     overflow: 'hidden',
@@ -102,7 +119,6 @@ const styles = StyleSheet.create({
   },
   regionName: {
     color: 'white',
-    fontSize: 20,
     fontFamily: 'Poppins_600SemiBold',
     textShadowColor: 'rgba(0, 0, 0, 0.75)',
     textShadowOffset: { width: 0, height: 1 },
@@ -110,7 +126,6 @@ const styles = StyleSheet.create({
   },
   generationText: {
     color: 'white',
-    fontSize: 12,
     fontFamily: 'Poppins_500Medium',
     textShadowColor: 'rgba(0, 0, 0, 0.75)',
     textShadowOffset: { width: 0, height: 1 },
@@ -121,9 +136,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   starterImage: {
-    width: 80,
-    height: 80,
-    marginLeft: 0,
+    marginLeft: 5,
   },
   selectedIndicator: {
     position: 'absolute',
