@@ -3,10 +3,11 @@ import { StyleSheet, Text, View } from 'react-native';
 import Pokedex from './src/screens/Home/Pokedex';
 import RegionsScreen from './src/screens/Home/RegionsScreen';
 import FavoritesScreen from './src/screens/Home/FavoritesScreen';
+import PokemonDetail from './src/screens/Home/PokemonDetail';
 
 export default function App() {
   return (
-    <FavoritesScreen></FavoritesScreen>
+    <PokemonDetail></PokemonDetail>
   );
 }
 
