@@ -32,7 +32,7 @@ const regionData: RegionData[] = [
     id: '1',
     name: 'Kanto',
     generation: '1ª Generación',
-    backgroundImage: 'https://archives.bulbagarden.net/media/upload/0/08/Kanto_HGSS.png',
+    backgroundImage: 'https://archives.bulbagarden.net/media/upload/2/2f/KantoII.png',
     starterImages: [
       'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png',
       'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/4.png',
@@ -76,7 +76,7 @@ const regionData: RegionData[] = [
     id: '5',
     name: 'Unova',
     generation: '5ª Generación',
-    backgroundImage: 'https://archives.bulbagarden.net/media/upload/f/fc/Unova_B2W2_map.png',
+    backgroundImage: 'https://archives.bulbagarden.net/media/upload/1/11/Unova_Entralink_Map.png',
     starterImages: [
       'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/495.png',
       'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/498.png',
