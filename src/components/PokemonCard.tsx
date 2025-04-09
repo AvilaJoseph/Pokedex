@@ -124,7 +124,7 @@ const PokemonCard: React.FC<PokemonCardProps> = ({
 
   // Calculate if we need more height due to stacked badges on small screens
   const needsExtraHeight = isSmallScreen && types.length > 1;
-  const cardHeight = needsExtraHeight ? 180 : 165;
+  const cardHeight = needsExtraHeight ? 180 : 145;
 
   return (
     <TouchableOpacity
