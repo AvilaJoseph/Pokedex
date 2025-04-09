@@ -16,7 +16,6 @@ import {
 } from '@expo-google-fonts/poppins';
 import { useFonts } from 'expo-font';
 import { Ionicons } from '@expo/vector-icons';
-import { LinearGradient } from 'expo-linear-gradient';
 
 // Get screen dimensions for responsive design
 const { width } = Dimensions.get('window');
@@ -111,16 +110,13 @@ const WeaknessBadge = ({ weakness }: { weakness: PokemonWeakness }) => (
 const EvolutionItem = ({ evolution, isLast }: { evolution: PokemonEvolution, isLast: boolean }) => (
   <View style={styles.evolutionItem}>
     <View style={styles.evolutionImageContainer}>
-      <LinearGradient
-        colors={['#8CD058', '#FFFFFF']}
-        style={styles.evolutionGradient}
-      >
+      <View style={styles.evolutionGradient}>
         <Image 
           source={{ uri: evolution.imageUrl }} 
           style={styles.evolutionImage} 
           resizeMode="contain"
         />
-      </LinearGradient>
+      </View>
       <Text style={styles.evolutionName}>{evolution.name}</Text>
       <Text style={styles.evolutionNumber}>{evolution.number}</Text>
     </View>
@@ -166,17 +162,16 @@ export default function PokemonDetail({ navigation, route }: PokemonDetailProps)
           </TouchableOpacity>
         </View>
         
-        {/* Pokemon Image with Gradient Background */}
-        <LinearGradient
-          colors={['#8CD058', '#FFFFFF']}
-          style={styles.gradientContainer}
-        >
-          <Image 
-            source={{ uri: pokemonData.imageUrl }} 
-            style={styles.pokemonImage} 
-            resizeMode="contain"
-          />
-        </LinearGradient>
+        {/* Pokemon Image with Circular Background */}
+        <View style={styles.headerContainer}>
+          <View style={styles.circularBackground}>
+            <Image 
+              source={{ uri: pokemonData.imageUrl }} 
+              style={styles.pokemonImage} 
+              resizeMode="contain"
+            />
+          </View>
+        </View>
         
         {/* Pokemon Info Card */}
         <View style={styles.infoCard}>
@@ -290,12 +285,21 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  gradientContainer: {
+  headerContainer: {
     height: width * 0.6,
     width: '100%',
+    backgroundColor: '#8CD058',
     justifyContent: 'center',
     alignItems: 'center',
     paddingTop: 20,
+  },
+  circularBackground: {
+    width: width * 0.5,
+    height: width * 0.5,
+    borderRadius: width * 0.25,
+    backgroundColor: 'rgba(255, 255, 255, 0.3)',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   pokemonImage: {
     width: width * 0.4,
@@ -314,25 +318,25 @@ const styles = StyleSheet.create({
     fontFamily: 'Poppins_600SemiBold',
     fontSize: 24,
     color: '#212121',
-    textAlign: 'center',
+    textAlign: 'left',
   },
   pokemonNumber: {
     fontFamily: 'Poppins_500Medium',
     fontSize: 14,
     color: '#666666',
-    textAlign: 'center',
+    textAlign: 'left',
     marginBottom: 10,
   },
   typesContainer: {
     flexDirection: 'row',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     marginVertical: 10,
   },
   typeBadge: {
     paddingHorizontal: 16,
     paddingVertical: 6,
     borderRadius: 20,
-    marginHorizontal: 5,
+    marginRight: 8,
   },
   typeBadgeText: {
     fontFamily: 'Poppins_500Medium',
@@ -342,21 +346,22 @@ const styles = StyleSheet.create({
     fontFamily: 'Poppins_400Regular',
     fontSize: 14,
     color: '#666666',
-    textAlign: 'center',
+    textAlign: 'left',
     marginVertical: 15,
     lineHeight: 20,
   },
   statsContainer: {
     flexDirection: 'row',
-    justifyContent: 'space-around',
+    justifyContent: 'space-between',
     marginVertical: 15,
   },
   statBox: {
-    alignItems: 'center',
-    width: '45%',
-    backgroundColor: '#F2F2F2',
-    borderRadius: 10,
+    width: '48%',
+    backgroundColor: '#FFFFFF',
+    borderRadius: 8,
     padding: 15,
+    borderWidth: 1,
+    borderColor: '#E0E0E0',
   },
   statLabel: {
     fontFamily: 'Poppins_500Medium',
@@ -368,15 +373,15 @@ const styles = StyleSheet.create({
     fontFamily: 'Poppins_600SemiBold',
     fontSize: 16,
     color: '#212121',
+    textAlign: 'center',
   },
   categoryAbilityContainer: {
     flexDirection: 'row',
-    justifyContent: 'space-around',
+    justifyContent: 'space-between',
     marginVertical: 15,
   },
   categoryBox: {
-    alignItems: 'center',
-    width: '45%',
+    width: '48%',
   },
   categoryLabel: {
     fontFamily: 'Poppins_500Medium',
@@ -390,8 +395,7 @@ const styles = StyleSheet.create({
     color: '#212121',
   },
   abilityBox: {
-    alignItems: 'center',
-    width: '45%',
+    width: '48%',
   },
   abilityLabel: {
     fontFamily: 'Poppins_500Medium',
@@ -421,12 +425,14 @@ const styles = StyleSheet.create({
     backgroundColor: '#F2F2F2',
     borderRadius: 3,
     width: '60%',
+    borderWidth: 1,
+    borderColor: '#E0E0E0',
   },
   genderRatioFill: {
-    height: 6,
+    height: 4,
     width: '12.5%',
     backgroundColor: '#3B4CCA',
-    borderRadius: 3,
+    borderRadius: 2,
   },
   genderRatioText: {
     fontFamily: 'Poppins_400Regular',
@@ -443,6 +449,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: '#212121',
     marginBottom: 15,
+    textAlign: 'left',
   },
   weaknessesContainer: {
     flexDirection: 'row',
@@ -476,6 +483,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 5,
+    backgroundColor: '#8CD058',
   },
   evolutionImage: {
     width: 60,
